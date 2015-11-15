@@ -4,7 +4,8 @@ CC	= g++
 C_FLAGS = -Wall -std=c++11
 
 
-all: move clean
+install: compile
+	ln $(EXEC) /usr/bin/$(EXEC)
 
 compile: $(OBJ)
 	$(CC) $(C_FLAGS) $(OBJ) -o $(EXEC)
