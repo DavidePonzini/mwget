@@ -8,7 +8,7 @@ int main(int ArgC, char** ArgV)
 {
 	if(ArgC == 1)
 	{
-		cout << usage;
+		cerr << usage;
 		return 200;
 	}
 
@@ -53,13 +53,15 @@ int main(int ArgC, char** ArgV)
 
 	// Start downloading
 	Clear();
+
 	unsigned int totalElements = fileList.GetElemCount();
-	printf(status.c_str(), fileList.GetElemCount(), totalElements, errors.Count, errors.Message.c_str());
+	FileInfo file = fileList.GetNext();
+
+	printf(status.c_str(), file.Name, fileList.GetElemCount(), totalElements, errors.Count, errors.Message.c_str());
 
 	while(fileList.GetElemCount() > 0)
 	{
-		FileInfo file = fileList.GetNext();
-
+		// Download
 		int exit_val = Download(file.Name, file.Url);
 
 		// Clear screen
@@ -74,8 +76,9 @@ int main(int ArgC, char** ArgV)
 			errors.AddError(err_code1, file.Name, exit_val);
 			break;
 		case 2:
-			errors.AddError(err_code2, file.Name, exit_val);
+/*			errors.AddError(err_code2, file.Name, exit_val);
 			break;
+*/			return 2;
 		case 3:
 			errors.AddError(err_code3, file.Name, exit_val);
 			break;
@@ -106,7 +109,10 @@ int main(int ArgC, char** ArgV)
 			errors.AddError(err_unknown, file.Name, exit_val);
 		}
 
-		printf(status.c_str(), totalElements, fileList.GetElemCount(), errors.Count, errors.Message.c_str());
+
+		// Get next file and print status
+		file = fileList.GetNext();
+		printf(status.c_str(), file.Name, totalElements, fileList.GetElemCount(), errors.Count, errors.Message.c_str());
 	}
 
 	return 0;

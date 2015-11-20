@@ -21,6 +21,8 @@ string status =
 		"\n"
 		"*********************************************\n"
 		"\n"
+		"Current file: %s\n"
+		"\n"
 		"Total"	" | Remaining"	" | Errors"	"\n"
 		"%5u"	" | %-9u"	" | %-6u"	"\n"
 		"\n"
