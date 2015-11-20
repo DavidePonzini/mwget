@@ -1,14 +1,15 @@
-OBJ 	= Error.o Functions.o List.o Strings.o Main.o
-EXEC	= mwget.exe
-CC	= g++
-C_FLAGS = -Wall -std=c++11
+OBJ 		= Error.o Functions.o List.o Strings.o Main.o
+EXEC		= mwget.exe
+EXEC_NAME	= mwget
+CC		= g++
+C_FLAGS 	= -Wall -std=c++11
 
-
-install: compile
-	ln $(EXEC) /usr/bin/$(EXEC)
 
 compile: $(OBJ)
 	$(CC) $(C_FLAGS) $(OBJ) -o $(EXEC)
+
+install: compile
+	ln $(EXEC) /usr/bin/$(EXEC_NAME)
 
 run: compile
 	./$(EXEC)
