@@ -18,7 +18,7 @@ clean:
 	rm -f $(EXEC) $(OBJ)
 
 move: compile
-	mv $(EXEC) ../../$(EXEC)
+	mv $(EXEC) ../../$(EXEC_NAME)
 
 
 
