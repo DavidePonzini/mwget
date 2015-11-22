@@ -55,64 +55,64 @@ int main(int ArgC, char** ArgV)
 	Clear();
 
 	unsigned int totalElements = fileList.GetElemCount();
-	FileInfo file = fileList.GetNext();
-
-	printf(status.c_str(), file.Name, fileList.GetElemCount(), totalElements, errors.Count, errors.Message.c_str());
+	FileInfo file;
+	int ExitValue;
 
 	while(fileList.GetElemCount() > 0)
 	{
-		// Download
-		int exit_val = Download(file.Name, file.Url);
-
 		// Clear screen
 		Clear();
 
+		// Get next file to download
+		file = fileList.GetNext();
+
+		// Print Status
+		printf(status.c_str(), file.Name.c_str(), totalElements, fileList.GetElemCount(), errors.Count, errors.Message.c_str());
+
+		// Download
+		ExitValue = Download(file.Name, file.Url);
+
 		// Handle exit value
-		switch(exit_val)
+		switch(ExitValue)
 		{
 		case 0:
 			break;
 		case 1:
-			errors.AddError(err_code1, file.Name, exit_val);
+			errors.AddError(err_code1, file.Name, ExitValue);
 			break;
-		case 2:
-/*			errors.AddError(err_code2, file.Name, exit_val);
+		case 2: // Ctrl + C
+/*			errors.AddError(err_code2, file.Name, ExitValue);
 			break;
 */			return 2;
 		case 3:
-			errors.AddError(err_code3, file.Name, exit_val);
+			errors.AddError(err_code3, file.Name, ExitValue);
 			break;
 		case 4:
-			errors.AddError(err_code4, file.Name, exit_val);
+			errors.AddError(err_code4, file.Name, ExitValue);
 			break;
 		case 5:
-			errors.AddError(err_code5, file.Name, exit_val);
+			errors.AddError(err_code5, file.Name, ExitValue);
 			break;
 		case 6:
-			errors.AddError(err_code6, file.Name, exit_val);
+			errors.AddError(err_code6, file.Name, ExitValue);
 			break;
 		case 7:
-			errors.AddError(err_code7, file.Name, exit_val);
+			errors.AddError(err_code7, file.Name, ExitValue);
 			break;
 		case 8:
-			errors.AddError(err_code8, file.Name, exit_val);
+			errors.AddError(err_code8, file.Name, ExitValue);
 		case 256:
-			errors.AddError(err_code256, file.Name, exit_val);
+			errors.AddError(err_code256, file.Name, ExitValue);
 			break;
 		case 1024:
-			errors.AddError(err_code1024, file.Name, exit_val);
+			errors.AddError(err_code1024, file.Name, ExitValue);
 			break;
 		case 2048:
-			errors.AddError(err_code2048, file.Name, exit_val);
+			errors.AddError(err_code2048, file.Name, ExitValue);
 			break;
 		default:
-			errors.AddError(err_unknown, file.Name, exit_val);
+			errors.AddError(err_unknown, file.Name, ExitValue);
 		}
-
-
-		// Get next file and print status
-		file = fileList.GetNext();
-		printf(status.c_str(), file.Name, totalElements, fileList.GetElemCount(), errors.Count, errors.Message.c_str());
 	}
 
 	return 0;
